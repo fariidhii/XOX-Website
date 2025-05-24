@@ -6,25 +6,28 @@
     <title>Tic Tac Toe</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
-    <div class="max-w-md w-full bg-white rounded-xl shadow-2xl overflow-hidden">
+<body class="bg-gray-900 min-h-screen flex flex-col items-center justify-center p-4 font-['Press_Start_2P']">
+    <div class="max-w-md w-full bg-gray-800 rounded-xl shadow-2xl overflow-hidden border-4 border-cyan-500">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white">
-            <h1 class="text-3xl font-bold text-center">Tic Tac Toe</h1>
+        <div class="bg-gradient-to-r from-cyan-500 to-purple-600 p-6 text-white">
+            <h1 class="text-2xl font-bold text-center">TIC TAC TOE</h1>
             <div class="flex justify-between items-center mt-4">
-                <div class="bg-white bg-opacity-20 rounded-lg p-3 text-center">
-                    <p class="text-sm opacity-80">Player X</p>
-                    <p id="score-x" class="text-xl font-bold">0</p>
+                <div class="bg-gray-800 bg-opacity-50 rounded-lg p-3 text-center border-2 border-cyan-400">
+                    <p class="text-xs opacity-80">PLAYER X</p>
+                    <p id="score-x" class="text-lg font-bold">0</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-sm opacity-80">Round</p>
-                    <p id="round" class="text-xl font-bold">1</p>
+                    <p class="text-xs opacity-80">ROUND</p>
+                    <p id="round" class="text-lg font-bold">1</p>
                 </div>
-                <div class="bg-white bg-opacity-20 rounded-lg p-3 text-center">
-                    <p class="text-sm opacity-80">Player O</p>
-                    <p id="score-o" class="text-xl font-bold">0</p>
+                <div class="bg-gray-800 bg-opacity-50 rounded-lg p-3 text-center border-2 border-cyan-400">
+                    <p class="text-xs opacity-80">PLAYER O</p>
+                    <p id="score-o" class="text-lg font-bold">0</p>
                 </div>
             </div>
         </div>
@@ -38,26 +41,26 @@
         </div>
 
         <!-- Game Controls -->
-        <div class="p-6 bg-gray-50 border-t border-gray-200">
+        <div class="p-6 bg-gray-900 border-t-4 border-cyan-500">
             <div class="flex flex-col space-y-4">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center space-x-2">
-                        <span id="current-player" class="text-2xl font-bold">X</span>
-                        <span class="text-gray-700">'s turn</span>
+                        <span id="current-player" class="text-xl font-bold text-cyan-400">X</span>
+                        <span class="text-gray-300 text-xs">'S TURN</span>
                     </div>
-                    <button id="restart-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition">
-                        <i class="fas fa-redo mr-2"></i>Restart
+                    <button id="restart-btn" class="bg-gray-800 hover:bg-gray-700 text-cyan-400 px-4 py-2 rounded-lg transition border-2 border-cyan-400 text-xs">
+                        <i class="fas fa-redo mr-2"></i>RESTART
                     </button>
                 </div>
-                <div id="game-status" class="text-center text-lg font-semibold text-gray-700">
-                    Game in progress
+                <div id="game-status" class="text-center text-sm font-semibold text-cyan-400">
+                    GAME IN PROGRESS
                 </div>
                 <div class="flex space-x-3">
-                    <button id="new-game-btn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center">
-                        <i class="fas fa-plus-circle mr-2"></i>New Game
+                    <button id="new-game-btn" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center border-2 border-cyan-400 text-xs">
+                        <i class="fas fa-plus-circle mr-2"></i>NEW GAME
                     </button>
-                    <button id="ai-toggle" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-3 rounded-lg font-medium transition flex items-center justify-center">
-                        <i class="fas fa-robot mr-2"></i>vs AI
+                    <button id="ai-toggle" class="bg-gray-800 hover:bg-gray-700 text-cyan-400 px-4 py-3 rounded-lg font-medium transition flex items-center justify-center border-2 border-cyan-400 text-xs">
+                        <i class="fas fa-robot mr-2"></i>VS AI
                     </button>
                 </div>
             </div>
