@@ -1,0 +1,21 @@
+.cell {
+    transition: all 0.3s ease;
+}
+.cell:hover:not(.disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.winning-cell {
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0% { background-color: rgba(134, 239, 172, 0.5); }
+    50% { background-color: rgba(74, 222, 128, 0.8); }
+    100% { background-color: rgba(134, 239, 172, 0.5); }
+}
+.draw-line {
+    position: absolute;
+    background-color: #ef4444;
+    z-index: 10;
+    transition: all 0.5s ease;
+}
