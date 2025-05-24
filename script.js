@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     // Game state
     let board = ['', '', '', '', '', '', '', '', ''];
@@ -8,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let round = 1;
     let vsAI = false;
     let winningCells = [];
+    
+    // Sound effects
+    const winSound = new Audio('sound/win.mp3');
+    const loseSound = new Audio('sound/lose.mp3');
     
     // DOM elements
     const boardElement = document.querySelector('.grid');
@@ -168,6 +171,18 @@ document.addEventListener('DOMContentLoaded', () => {
             scores[result.winner]++;
             updateScores();
             
+            // Play win sound for winner, lose sound for loser
+            if (result.winner === 'X') {
+                winSound.play();
+                if (vsAI) loseSound.play();
+            } else {
+                if (vsAI) {
+                    loseSound.play();
+                } else {
+                    winSound.play();
+                }
+            }
+            
             // Display win message
             gameStatusElement.textContent = `Player ${result.winner} wins!`;
             gameStatusElement.className = 'text-center text-lg font-semibold ' + 
@@ -178,8 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 boardElement.children[index].classList.add('winning-cell');
             });
             
-            // Draw winning line
-            drawWinningLine(result.line, result.index);
+            // Sembunyikan garis kemenangan jika ada
+            drawLineElement.classList.add('hidden');
             
             // Show confetti for winner
             showConfetti();
@@ -198,52 +213,45 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Draw winning line
     function drawWinningLine(line, index) {
-        const boardRect = boardElement.getBoundingClientRect();
-        const cellSize = boardRect.width / 3;
-        
-        let startX, startY, endX, endY;
-        
-        switch (line) {
-            case 'row':
-                startX = 0;
-                startY = (index * cellSize) + (cellSize / 2);
-                endX = boardRect.width;
-                endY = startY;
-                break;
-            case 'column':
-                startX = (index * cellSize) + (cellSize / 2);
-                startY = 0;
-                endX = startX;
-                endY = boardRect.height;
-                break;
-            case 'diagonal':
-                if (index === 0) {
-                    startX = 0;
-                    startY = 0;
-                    endX = boardRect.width;
-                    endY = boardRect.height;
-                } else {
-                    startX = boardRect.width;
-                    startY = 0;
-                    endX = 0;
-                    endY = boardRect.height;
-                }
-                break;
+        // Ambil cell pertama dan terakhir dari garis kemenangan
+        let startCell, endCell;
+        if (line === 'row') {
+            startCell = boardElement.children[index * 3];
+            endCell = boardElement.children[index * 3 + 2];
+        } else if (line === 'column') {
+            startCell = boardElement.children[index];
+            endCell = boardElement.children[index + 6];
+        } else if (line === 'diagonal') {
+            if (index === 0) {
+                startCell = boardElement.children[0];
+                endCell = boardElement.children[8];
+            } else {
+                startCell = boardElement.children[2];
+                endCell = boardElement.children[6];
+            }
         }
-        
-        drawLineElement.style.width = line === 'column' ? '4px' : `${Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2))}px`;
-        drawLineElement.style.height = line === 'row' ? '4px' : '0';
-        drawLineElement.style.left = `${startX}px`;
-        drawLineElement.style.top = `${startY}px`;
-        drawLineElement.style.transformOrigin = '0 0';
-        
-        if (line === 'diagonal') {
-            const angle = index === 0 ? 
-                Math.atan2(boardRect.height, boardRect.width) : 
-                Math.atan2(boardRect.height, -boardRect.width);
-            drawLineElement.style.transform = `rotate(${angle}rad)`;
-        }
-        
+
+        const gridRect = boardElement.getBoundingClientRect();
+        const startRect = startCell.getBoundingClientRect();
+        const endRect = endCell.getBoundingClientRect();
+
+        // Hitung posisi tengah cell relatif terhadap grid
+        const startX = startRect.left - gridRect.left + startRect.width / 2;
+        const startY = startRect.top - gridRect.top + startRect.height / 2;
+        const endX = endRect.left - gridRect.left + endRect.width / 2;
+        const endY = endRect.top - gridRect.top + endRect.height / 2;
+
+        // Hitung panjang dan sudut garis
+        const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+        const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+
+        const lineThickness = 4; // px
+        drawLineElement.style.width = length + 'px';
+        drawLineElement.style.height = lineThickness + 'px';
+        drawLineElement.style.left = startX + 'px';
+        drawLineElement.style.top = (startY - lineThickness / 2) + 'px'; // Koreksi agar benar-benar di tengah simbol
+        drawLineElement.style.transformOrigin = '0 50%';
+        drawLineElement.style.transform = `rotate(${angle}deg)`;
         drawLineElement.classList.remove('hidden');
     }
     

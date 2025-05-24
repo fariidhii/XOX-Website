@@ -1,21 +1,84 @@
 .cell {
     transition: all 0.3s ease;
+    background-color: #1f2937;
+    border: 2px solid #06b6d4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #06b6d4;
+    text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+    cursor: pointer;
+    aspect-ratio: 1;
 }
 .cell:hover:not(.disabled) {
     transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+    background-color: #2d3748;
+}
+.cell.disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
 }
 .winning-cell {
-    animation: pulse 1.5s infinite;
+    border: 4px solid #22d3ee !important;
+    box-shadow: 0 0 16px 4px #22d3ee, 0 0 32px 8px #67e8f9;
+    animation: border-pulse 1.2s infinite alternate;
+    background-color: #2d3748;
 }
-@keyframes pulse {
-    0% { background-color: rgba(134, 239, 172, 0.5); }
-    50% { background-color: rgba(74, 222, 128, 0.8); }
-    100% { background-color: rgba(134, 239, 172, 0.5); }
+@keyframes border-pulse {
+    0% { box-shadow: 0 0 8px 2px #22d3ee, 0 0 16px 4px #67e8f9; }
+    100% { box-shadow: 0 0 24px 8px #22d3ee, 0 0 48px 16px #67e8f9; }
 }
 .draw-line {
     position: absolute;
-    background-color: #ef4444;
+    background-color: #06b6d4;
     z-index: 10;
     transition: all 0.5s ease;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+/* Futuristic button hover effects */
+button {
+    position: relative;
+    overflow: hidden;
+}
+button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(6, 182, 212, 0.1),
+        transparent
+    );
+    transform: rotate(45deg);
+    transition: 0.5s;
+}
+button:hover::after {
+    left: 100%;
+}
+/* Add retro scanlines effect */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 100;
+}
+.grid {
+    position: relative;
 }
